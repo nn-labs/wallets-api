@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+service WalletsService {
+  rpc CreateWallet (CoinName) returns (WalletInfo) {}
+  rpc CreateMnemonic (Empty) returns (MnemonicInfo) {}
+}
+
+message CoinName {
+  string name = 1;
+}
+
+message Empty {}
+
+message Wallet {
+  string mnemonic = 1;
+  string coinName = 2;
+  string address = 3;
+  string private = 4;
+}
+
+message WalletInfo {
+  Wallet wallet = 1;
+}
+
+message MnemonicInfo {
+  string mnemonic = 1;
+}
