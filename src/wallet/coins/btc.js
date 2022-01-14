@@ -10,27 +10,25 @@ function createBTCWallet() {
     const mnemonic = createMnemonic();
     const seed = bip39.mnemonicToSeedSync(mnemonic);
 
-    // Define the network
-    const network = bitcoin.networks.bitcoin; // use networks.testnet for testnet
+    const network = bitcoin.networks.bitcoin;
 
     const bip32 = BIP32Factory(ecc);
+    const BTCNode = bip32.fromSeed(seed, network);
+    const BTCChild = BTCNode.derivePath(BTCPath);
+    // const node = account.derive(0).derive(0);
 
-    const root = bip32.fromSeed(seed, network);
-
-    const account = root.derivePath(BTCPath);
-    const node = account.derive(0).derive(0);
-
-    // p2pkh
-    const btcAddress = bitcoin.payments.p2wpkh({
-        pubkey: node.publicKey,
+    // p2wpkh
+    const BTCAddress = bitcoin.payments.p2pkh({
+        pubkey: BTCChild.publicKey,
         network: network,
     }).address;
+    const BTCPrivateKey = BTCChild.toWIF();
 
     return {
         mnemonic,
         coinName: 'BTC',
-        address: btcAddress,
-        private: node.toWIF(),
+        address: BTCAddress,
+        private: BTCPrivateKey,
     };
 }
 
