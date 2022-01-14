@@ -1,15 +1,18 @@
 syntax = "proto3";
 
 service WalletService {
-  rpc CreateWallet (CoinName) returns (WalletInfo) {}
-  rpc CreateMnemonic (Empty) returns (MnemonicInfo) {}
+  rpc CreateWallet (CreateWalletData) returns (WalletInfo) {}
+  rpc CreateMnemonic (CreateMnemonicData) returns (MnemonicInfo) {}
 }
 
-message CoinName {
-  string name = 1;
+message CreateWalletData {
+  string walletName = 1;
 }
 
-message Empty {}
+message CreateMnemonicData {
+  string mnemonicLength = 1;
+  string language = 2;
+}
 
 message Wallet {
   string mnemonic = 1;

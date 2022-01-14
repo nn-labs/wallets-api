@@ -18,7 +18,7 @@ const client = new WalletService(
     grpc.credentials.createInsecure(),
 );
 
-client.createWallet({ name: 'ETH' }, (err, data) => {
+client.createWallet({ walletName: 'ETH' }, (err, data) => {
     if (err) {
         console.log(err);
         return;

@@ -32,7 +32,10 @@ server.addService(walletsProto.WalletService.service, {
     },
     createMnemonic: (call, callback) => {
         try {
-            const mnemonic = createMnemonic();
+            const mnemonic = createMnemonic(
+                call.request.mnemonicLength,
+                call.request.language,
+            );
             callback(null, { mnemonic });
         } catch (error) {
             callback({
