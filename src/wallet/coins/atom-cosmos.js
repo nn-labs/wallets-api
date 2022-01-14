@@ -16,7 +16,7 @@ function createAtomCosmosWallet() {
     const ATOMChild = ATOMNode.derivePath(ATOMCosmosPath);
     const ATOMWords = bech32.toWords(ATOMChild.identifier);
     const ATOMAddress = bech32.encode(ATOMPrefix, ATOMWords);
-    const ATOMPrivateKey = ATOMChild.privateKey.toString('hex');
+    const ATOMPrivateKey = ATOMChild.privateKey.toString('base64');
 
     return {
         mnemonic,
