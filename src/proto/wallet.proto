@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-service WalletsService {
+service WalletService {
   rpc CreateWallet (CoinName) returns (WalletInfo) {}
   rpc CreateMnemonic (Empty) returns (MnemonicInfo) {}
 }

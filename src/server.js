@@ -5,7 +5,7 @@ const path = require('path');
 const { createWalletByName } = require('./wallet/createWallet');
 const { createMnemonic } = require('./wallet/mnemonic');
 
-const PROTO_PATH = path.resolve(__dirname, 'proto/wallets.proto');
+const PROTO_PATH = path.resolve(__dirname, 'proto/wallet.proto');
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
     keepCase: true,
@@ -18,7 +18,7 @@ const walletsProto = grpc.loadPackageDefinition(packageDefinition);
 
 const server = new grpc.Server();
 
-server.addService(walletsProto.WalletsService.service, {
+server.addService(walletsProto.WalletService.service, {
     createWallet: (call, callback) => {
         try {
             const wallet = createWalletByName(call.request.name);

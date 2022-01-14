@@ -1,6 +1,6 @@
 const path = require('path');
 
-const PROTO_PATH = path.resolve(__dirname, 'proto/wallets.proto');
+const PROTO_PATH = path.resolve(__dirname, 'proto/wallet.proto');
 
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
@@ -12,8 +12,8 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
     arrays: true,
 });
 
-const { WalletsService } = grpc.loadPackageDefinition(packageDefinition);
-const client = new WalletsService(
+const { WalletService } = grpc.loadPackageDefinition(packageDefinition);
+const client = new WalletService(
     'localhost:50051',
     grpc.credentials.createInsecure(),
 );
