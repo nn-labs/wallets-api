@@ -3,9 +3,10 @@ const { hdkey } = require('ethereumjs-wallet');
 const { createMnemonic } = require('../mnemonic');
 const { ETHPath } = require('./paths');
 
-function createETHWallet() {
-    const mnemonic = createMnemonic(12, 'english');
-    const seed = bip39.mnemonicToSeedSync(mnemonic);
+function createETHWallet(mnemonic) {
+    const mnc =
+        mnemonic && mnemonic !== '' ? mnemonic : createMnemonic(12, 'english');
+    const seed = bip39.mnemonicToSeedSync(mnc);
 
     const ETHHdWallet = hdkey.fromMasterSeed(seed);
     const ETHWallet = ETHHdWallet.derivePath(ETHPath).getWallet();
@@ -13,7 +14,7 @@ function createETHWallet() {
     const ETHPrivateKey = `0x${ETHWallet.getPrivateKey().toString('hex')}`;
 
     return {
-        mnemonic,
+        mnemonic: mnc,
         coinName: 'ETH',
         address: ETHAddress,
         private: ETHPrivateKey,

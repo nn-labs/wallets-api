@@ -5,9 +5,10 @@ const ecc = require('tiny-secp256k1');
 const { createMnemonic } = require('../mnemonic');
 const { ATOMCosmosPath } = require('./paths');
 
-function createAtomCosmosWallet() {
-    const mnemonic = createMnemonic(12, 'english');
-    const seed = bip39.mnemonicToSeedSync(mnemonic);
+function createAtomCosmosWallet(mnemonic) {
+    const mnc =
+        mnemonic && mnemonic !== '' ? mnemonic : createMnemonic(12, 'english');
+    const seed = bip39.mnemonicToSeedSync(mnc);
 
     const bip32 = BIP32Factory(ecc);
 
@@ -19,7 +20,7 @@ function createAtomCosmosWallet() {
     const ATOMPrivateKey = ATOMChild.privateKey.toString('base64');
 
     return {
-        mnemonic,
+        mnemonic: mnc,
         coinName: 'ATOM-Cosmos',
         address: ATOMAddress,
         private: ATOMPrivateKey,

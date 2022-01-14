@@ -7,9 +7,10 @@ const { createMnemonic } = require('../mnemonic');
 const { SOLPath } = require('./paths');
 const { toBuffer } = require('../../helpers/toBuffer');
 
-function createSOLWallet() {
-    const mnemonic = createMnemonic(12, 'english');
-    const seed = bip39.mnemonicToSeedSync(mnemonic);
+function createSOLWallet(mnemonic) {
+    const mnc =
+        mnemonic && mnemonic !== '' ? mnemonic : createMnemonic(12, 'english');
+    const seed = bip39.mnemonicToSeedSync(mnc);
 
     const bip32 = BIP32Factory(ecc);
 
@@ -19,7 +20,7 @@ function createSOLWallet() {
     const SOLAddress = bs58.encode(toBuffer(SOLKeyPair.publicKey));
     const SOLPrivateKey = bs58.encode(toBuffer(SOLKeyPair.secretKey));
     return {
-        mnemonic,
+        mnemonic: mnc,
         coinName: 'SOL',
         address: SOLAddress,
         private: SOLPrivateKey,

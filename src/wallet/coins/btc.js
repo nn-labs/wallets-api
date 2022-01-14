@@ -6,9 +6,10 @@ const { BIP32Factory } = require('bip32');
 const { createMnemonic } = require('../mnemonic');
 const { BTCPath } = require('./paths');
 
-function createBTCWallet() {
-    const mnemonic = createMnemonic(12, 'english');
-    const seed = bip39.mnemonicToSeedSync(mnemonic);
+function createBTCWallet(mnemonic) {
+    const mnc =
+        mnemonic && mnemonic !== '' ? mnemonic : createMnemonic(12, 'english');
+    const seed = bip39.mnemonicToSeedSync(mnc);
 
     const network = bitcoin.networks.bitcoin;
 
@@ -25,7 +26,7 @@ function createBTCWallet() {
     const BTCPrivateKey = BTCChild.toWIF();
 
     return {
-        mnemonic,
+        mnemonic: mnc,
         coinName: 'BTC',
         address: BTCAddress,
         private: BTCPrivateKey,
