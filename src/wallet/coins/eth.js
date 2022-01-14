@@ -4,7 +4,7 @@ const { createMnemonic } = require('../mnemonic');
 const { ETHPath } = require('./paths');
 
 function createETHWallet() {
-    const mnemonic = createMnemonic();
+    const mnemonic = createMnemonic(12, 'english');
     const seed = bip39.mnemonicToSeedSync(mnemonic);
 
     const ETHHdWallet = hdkey.fromMasterSeed(seed);

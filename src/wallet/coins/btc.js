@@ -7,7 +7,7 @@ const { createMnemonic } = require('../mnemonic');
 const { BTCPath } = require('./paths');
 
 function createBTCWallet() {
-    const mnemonic = createMnemonic();
+    const mnemonic = createMnemonic(12, 'english');
     const seed = bip39.mnemonicToSeedSync(mnemonic);
 
     const network = bitcoin.networks.bitcoin;

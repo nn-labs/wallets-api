@@ -21,7 +21,7 @@ const server = new grpc.Server();
 server.addService(walletsProto.WalletService.service, {
     createWallet: (call, callback) => {
         try {
-            const wallet = createWalletByName(call.request.name);
+            const wallet = createWalletByName(call.request.walletName);
             callback(null, { wallet });
         } catch (error) {
             callback({

@@ -6,7 +6,7 @@ const { createMnemonic } = require('../mnemonic');
 const { ATOMCosmosPath } = require('./paths');
 
 function createAtomCosmosWallet() {
-    const mnemonic = createMnemonic();
+    const mnemonic = createMnemonic(12, 'english');
     const seed = bip39.mnemonicToSeedSync(mnemonic);
 
     const bip32 = BIP32Factory(ecc);

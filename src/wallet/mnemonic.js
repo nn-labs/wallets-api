@@ -5,7 +5,16 @@ function createMnemonic(length, language) {
         12: 128,
         24: 256,
     };
-    const languages = ['english', 'spanish', 'japanese'];
+    const languages = [
+        'english',
+        'spanish',
+        'japanese',
+        'italian',
+        'french',
+        'korean',
+        'czech',
+        'portuguese',
+    ];
 
     if (!(length in mnemonicLength)) {
         throw new Error('wrong length of mnemonic');
