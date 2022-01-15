@@ -140,6 +140,25 @@ class Wallet {
             private: AVAXPrivateKey,
         };
     }
+
+    createWallet(name) {
+        switch (name) {
+            case 'BTC':
+                return this.getBtcWallet();
+            case 'ETH':
+                return this.getEthWallet();
+            case 'ATOM-Cosmos':
+                return this.getAtomCosmosWallet();
+            case 'SOL':
+                return this.getSolWallet();
+            case 'AVAX':
+                return this.getAvaxWallet();
+            case 'LUNA':
+                return this.getTerraLunaWallet();
+            default:
+                throw Error('Wrong type of wallet!');
+        }
+    }
 }
 
 module.exports = Wallet;

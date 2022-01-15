@@ -2,8 +2,8 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 
-const { createWalletByName } = require('./wallet/create');
 const { createMnemonic } = require('./wallet/mnemonic');
+const Wallet = require('./wallet/wallet');
 
 const PROTO_PATH = path.resolve(__dirname, 'proto/wallet.proto');
 
@@ -21,10 +21,8 @@ const server = new grpc.Server();
 server.addService(walletsProto.WalletService.service, {
     createWallet: (call, callback) => {
         try {
-            const wallet = createWalletByName(
-                call.request.walletName,
-                call.request.mnemonic,
-            );
+            const w = new Wallet(call.request.mnemonic);
+            const wallet = w.createWallet(call.request.walletName);
             callback(null, { wallet });
         } catch (error) {
             callback({
