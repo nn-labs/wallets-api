@@ -2,7 +2,7 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 
-const { createWalletByName } = require('./wallet/createWallet');
+const { createWalletByName } = require('./wallet/create');
 const { createMnemonic } = require('./wallet/mnemonic');
 
 const PROTO_PATH = path.resolve(__dirname, 'proto/wallet.proto');
