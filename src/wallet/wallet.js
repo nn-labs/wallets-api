@@ -51,11 +51,11 @@ class Wallet {
     }
 
     getEthWallet() {
-        const ETHHdWallet = hdkey.fromMasterSeed(this.seed);
-        const ETHWallet = ETHHdWallet.derivePath(ETHPath).getWallet();
+        const ETHNode = hdkey.fromMasterSeed(this.seed);
+        const ETHChild = ETHNode.derivePath(ETHPath).getWallet();
 
-        const ETHAddress = `0x${ETHWallet.getAddress().toString('hex')}`;
-        const ETHPrivateKey = `0x${ETHWallet.getPrivateKey().toString('hex')}`;
+        const ETHAddress = `0x${ETHChild.getAddress().toString('hex')}`;
+        const ETHPrivateKey = `0x${ETHChild.getPrivateKey().toString('hex')}`;
 
         return {
             mnemonic: this.mnemonic,
@@ -127,12 +127,11 @@ class Wallet {
     }
 
     getAvaxWallet() {
-        const AVAXHdWallet = hdkey.fromMasterSeed(this.seed);
-        const AVAXWallet = AVAXHdWallet.derivePath(AVAXPath).getWallet();
-        const AVAXAddress = `0x${AVAXWallet.getAddress().toString('hex')}`;
-        const AVAXPrivateKey = `0x${AVAXWallet.getPrivateKey().toString(
-            'hex',
-        )}`;
+        const AVAXNode = hdkey.fromMasterSeed(this.seed);
+        const AVAXChild = AVAXNode.derivePath(AVAXPath).getWallet();
+
+        const AVAXAddress = `0x${AVAXChild.getAddress().toString('hex')}`;
+        const AVAXPrivateKey = `0x${AVAXChild.getPrivateKey().toString('hex')}`;
 
         return {
             mnemonic: this.mnemonic,
