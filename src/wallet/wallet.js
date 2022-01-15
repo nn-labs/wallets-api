@@ -97,7 +97,7 @@ class Wallet {
 
         return {
             mnemonic: this.mnemonic,
-            coinName: 'ATOM-Cosmos',
+            coinName: 'Terra-LUNA',
             address: TerraLunaAddress,
             private: TerraLunaPrivateKey,
         };
