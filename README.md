@@ -1,5 +1,5 @@
 # gRPC wallets API
-### Already support coins:
+### Supported coins:
 - [x] BTC
 - [x] ETH
 - [x] ATOM-Cosmos
