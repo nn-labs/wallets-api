@@ -7,11 +7,13 @@ const { bech32 } = require('bech32');
 const nacl = require('tweetnacl');
 const bs58 = require('bs58');
 const { createMnemonic } = require('./mnemonic');
+const { derivePath } = require('ed25519-hd-key')
 const {
     BTCPath,
     ETHPath,
     ATOMCosmosPath,
     TerraLunaPath,
+    NearPath,
     SOLPath,
     AVAXPath,
 } = require('./paths');
@@ -141,6 +143,22 @@ class Wallet {
         };
     }
 
+    getNearWallet() {
+        const { key } = derivePath(NearPath, this.seed.toString('hex'))
+        const NearKeyPair = nacl.sign.keyPair.fromSeed(key)
+        const NearPublicKey = 'ed25519:' + bs58.encode(toBuffer(NearKeyPair.publicKey))
+        const NearSecretKey = 'ed25519:' + bs58.encode(toBuffer(NearKeyPair.secretKey))
+
+        return {
+            mnemonic: this.mnemonic,
+            coinName: 'NEAR',
+            public: NearPublicKey,
+            private: NearSecretKey,
+            address: Buffer.from(bs58.decode(publicKey.replace('ed25519:', ''))).toString('hex')
+        };
+    }
+    
+
     createWallet(name) {
         switch (name) {
             case 'BTC':
@@ -155,6 +173,8 @@ class Wallet {
                 return this.getAvaxWallet();
             case 'LUNA':
                 return this.getTerraLunaWallet();
+            case 'NEAR':
+                return this.getNearWallet();
             default:
                 throw Error('Wrong type of wallet!');
         }
