@@ -3,7 +3,7 @@ const ETHPath = "m/44'/60'/0'/0/0";
 const ATOMCosmosPath = "m/44'/118'/0'/0/0";
 const TerraLunaPath = "m/44'/330'/0'/0/0";
 const NearPath = "m/44'/397'/0'";
-const SOLPath = "m/44'/501'/0'/0/0";
+const SOLPath = "m/44'/501'/0'/0'";
 const AVAXPath = "m/44'/9000'/0'";
 
 module.exports = {

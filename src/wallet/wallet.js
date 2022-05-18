@@ -108,16 +108,9 @@ class Wallet {
 	}
 
 	getSolWallet() {
-		const SOLDeriveSeed = this.bip32
-			.fromSeed(this.seed)
-			.derivePath(SOLPath).privateKey;
+		const { key } = derivePath(SOLPath, this.seed.toString('hex'));
 
-		const SOLSecretKey =
-			nacl.sign.keyPair.fromSeed(SOLDeriveSeed).secretKey;
-
-		const SOLKeyPair = nacl.sign.keyPair.fromSecretKey(
-			toBuffer(SOLSecretKey),
-		);
+		const SOLKeyPair = nacl.sign.keyPair.fromSeed(key);
 
 		const SOLAddress = bs58.encode(SOLKeyPair.publicKey);
 		const SOLPrivateKey = bs58.encode(SOLKeyPair.secretKey);
